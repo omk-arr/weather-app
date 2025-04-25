@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sun, Cloud, CloudRain, CloudSnow, Wind, Droplets, Thermometer, Navigation, CloudLightning, Cloudy, CloudDrizzle, CloudFog } from 'lucide-react';
+import { Sun, CloudRain, CloudSnow, Wind, Droplets, Thermometer, Navigation, CloudLightning, Cloudy, CloudDrizzle, CloudFog, Github, Linkedin, Instagram, ExternalLink, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 // import {API_KEY} from '../.env'
 
@@ -11,18 +11,12 @@ export default function WeatherApp() {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  
-  // Replace with your actual API key
-  // const API_KEY = '9NQ3247GEAZMZ62Y9FZ5XRE7G';
-  const API_KEY = import.meta.env.VITE_API_KEY;
- // Check if the API key is being logged correctly
 
   const fetchWeatherData = async (loc) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}?key=${API_KEY}&unitGroup=${unit === '°F' ? 'us' : 'metric'}`);
-      
+      const response = await fetch(`http://localhost:5000/api/weather?loc=${loc}&unit=${unit}`);
       if (!response.ok) {
         throw new Error('Weather data not available');
       }
@@ -95,8 +89,37 @@ export default function WeatherApp() {
     return `${hour12}${ampm}`;
   };
 
+  // Social media links
+  const socialLinks = [
+    { 
+      name: 'GitHub',
+      url: 'https://github.com/yourusername', 
+      icon: <Github size={18} />
+    },
+    { 
+      name: 'LinkedIn',
+      url: 'https://linkedin.com/in/yourusername', 
+      icon: <Linkedin size={18} />
+    },
+    { 
+      name: 'Instagram',
+      url: 'https://instagram.com/yourusername', 
+      icon: <Instagram size={18} />
+    },
+    { 
+      name: 'Portfolio',
+      url: 'https://yourportfolio.com', 
+      icon: <ExternalLink size={18} />
+    },
+    { 
+      name: 'About Me',
+      url: '/about', 
+      icon: <User size={18} />
+    }
+  ];
+
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-b from-blue-400 to-blue-600 text-white p-4 md:p-8 overflow-hidden">
+    <div className="flex flex-col h-screen  text-white  p-4 md:p-8 mb-8">
       {/* Header */}
       <motion.header 
         className="flex justify-between items-center mb-6"
@@ -110,7 +133,7 @@ export default function WeatherApp() {
           whileTap={{ scale: 0.95 }}
         >
           <Navigation size={24} />
-          <h1 className="text-2xl font-bold">WeatherNow</h1>
+          <h1 className="text-2xl font-bold">What-da-Weatha</h1>
         </motion.div>
         <div className="flex items-center space-x-4">
           <motion.button 
@@ -310,7 +333,7 @@ export default function WeatherApp() {
 
           {/* 5-Day Forecast */}
           <motion.div 
-            className="bg-white/20 backdrop-blur-sm rounded-3xl p-4 flex-grow"
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-4 flex-grow mb-6"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.9, duration: 0.5 }}
@@ -394,11 +417,63 @@ export default function WeatherApp() {
               </motion.div>
             )}
           </motion.div>
+          <motion.div
+            className="bg-white/20 backdrop-blur-sm rounded-3xl p-4 flex-grow mb-6"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+          >
+            <div className="container mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <p className="text-sm">© {new Date().getFullYear()} Weather App</p>
+            <p className="text-xs text-blue-200 mt-1">Powered by Visual Crossing</p>
+            <p className="text-xs text-blue-200 mt-1">Built with ReactJS, Tailwind and Motion</p>
+          </div>
+          
+          <motion.div 
+            className="flex space-x-4"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  delayChildren: 0.3,
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+          >
+            {socialLinks.map((link, index) => (
+              <motion.a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center hover:text-blue-200 transition-colors duration-300 text-sm"
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="mr-1">{link.icon}</span>
+                {link.name}
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+          </motion.div>
+          {/* <div className='h-4 mb-6'></div> */}
         </>
       )}
 
       {/* Bottom Navigation */}
-      <motion.div 
+      {/* <motion.div 
         className="py-4 px-2 mt-6 bg-white/20 backdrop-blur-sm rounded-full fixed bottom-4 left-4 right-4 flex justify-around"
         initial={{ y: 100 }}
         animate={{ y: 0 }}
@@ -433,7 +508,7 @@ export default function WeatherApp() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
         </motion.button>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }
