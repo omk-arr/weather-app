@@ -93,27 +93,22 @@ export default function WeatherApp() {
   const socialLinks = [
     { 
       name: 'GitHub',
-      url: 'https://github.com/yourusername', 
+      url: 'https://github.com/omk-arr/', 
       icon: <Github size={18} />
     },
     { 
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/yourusername', 
+      url: 'https://www.linkedin.com/in/omkar-pawar-1193161a5/', 
       icon: <Linkedin size={18} />
     },
     { 
       name: 'Instagram',
-      url: 'https://instagram.com/yourusername', 
+      url: 'https://www.instagram.com/0mk.arr', 
       icon: <Instagram size={18} />
     },
     { 
-      name: 'Portfolio',
-      url: 'https://yourportfolio.com', 
-      icon: <ExternalLink size={18} />
-    },
-    { 
       name: 'About Me',
-      url: '/about', 
+      url: 'https://0mkar.vercel.app/', 
       icon: <User size={18} />
     }
   ];
@@ -132,8 +127,9 @@ export default function WeatherApp() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Navigation size={24} />
-          <h1 className="text-2xl font-bold">What-da-Weatha</h1>
+          {/* <Navigation size={24} /> */}
+          <div className='h-8 w-8 rounded-2'><img src="./weatherNowLogo.png" alt="Logo" /></div>
+          <h1 className="text-2xl font-bold">WeatherNow</h1>
         </motion.div>
         <div className="flex items-center space-x-4">
           <motion.button 
@@ -371,36 +367,36 @@ export default function WeatherApp() {
                     >
                       <p className="font-medium w-16">{getDayOfWeek(day.datetime)}</p>
                       <motion.div 
-                        className="flex-grow flex justify-center"
-                        whileHover={{ rotate: 15, scale: 1.2 }}
+                      className="flex-grow flex justify-center"
+                      whileHover={{ rotate: 15, scale: 1.2 }}
                       >
-                        {getWeatherIcon(day.conditions)}
+                      {getWeatherIcon(day.conditions)}
                       </motion.div>
                       <div className="w-24 flex justify-between">
-                        <span>{Math.round(day.tempmax)}{unit}</span>
-                        <span className="opacity-70">{Math.round(day.tempmin)}{unit}</span>
+                      <span>{Math.round(day.tempmax)}{unit}</span>
+                      <span className="opacity-70">{Math.round(day.tempmin)}{unit}</span>
                       </div>
                     </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-            
-            {!isExpanded && (
-              <motion.div 
-                className="space-y-4"
-                animate={{ opacity: 1 }}
-                transition={{ staggerChildren: 0.1 }}
-              >
-                {weatherData.days.slice(1, 6).map((day, index) => (
+                    ))}
+                  </motion.div>
+                  )}
+                </AnimatePresence>
+                
+                {!isExpanded && (
                   <motion.div 
+                  className="space-y-4"
+                  animate={{ opacity: 1 }}
+                  transition={{ staggerChildren: 0.1 }}
+                  >
+                  {weatherData.days.slice(1, 6).map((day, index) => (
+                    <motion.div 
                     key={index}
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1 + (index * 0.1), duration: 0.3 }}
                     whileHover={{ scale: 1.02, x: 5 }}
-                  >
+                    >
                     <p className="font-medium w-16">{getDayOfWeek(day.datetime)}</p>
                     <motion.div 
                       className="flex-grow flex justify-center"
@@ -412,27 +408,27 @@ export default function WeatherApp() {
                       <span>{Math.round(day.tempmax)}{unit}</span>
                       <span className="opacity-70">{Math.round(day.tempmin)}{unit}</span>
                     </div>
+                    </motion.div>
+                  ))}
                   </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </motion.div>
-          <motion.div
-            className="bg-white/20 backdrop-blur-sm rounded-3xl p-4 flex-grow mb-6"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
-          >
-            <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
+                )}
+                </motion.div>
+                <motion.div
+      className="bg-white/20 backdrop-blur-sm rounded-3xl p-4 flex-grow mb-6"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.9, duration: 0.5 }}
+    >
+      <div className="container mx-auto px-2">
+        <div className="flex flex-col justify-between items-center">
+          <div className="mb-4 w-full text-center md:text-left">
             <p className="text-sm">© {new Date().getFullYear()} Weather App</p>
             <p className="text-xs text-blue-200 mt-1">Powered by Visual Crossing</p>
             <p className="text-xs text-blue-200 mt-1">Built with ReactJS, Tailwind and Motion</p>
           </div>
           
           <motion.div 
-            className="flex space-x-4"
+            className="flex flex-wrap justify-center gap-5 w-full"
             initial="hidden"
             animate="visible"
             variants={{
@@ -467,8 +463,8 @@ export default function WeatherApp() {
           </motion.div>
         </div>
       </div>
-          </motion.div>
-          {/* <div className='h-4 mb-6'></div> */}
+    </motion.div>
+                {/* <div className='h-4 mb-6'></div> */}
         </>
       )}
 
