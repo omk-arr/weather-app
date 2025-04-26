@@ -133,7 +133,7 @@ export default function WeatherApp() {
         </motion.div>
         <div className="flex items-center space-x-4">
           <motion.button 
-            className={`px-2 py-1 rounded-md ${unit === '°F' ? 'bg-white text-blue-600' : 'bg-blue-500'}`}
+            className={`px-2 py-1 rounded-md ${unit === '°F' ? 'bg-white text-blue-600' : 'bg-blue-500'} cursor-pointer`}
             onClick={() => setUnit('°F')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -141,7 +141,7 @@ export default function WeatherApp() {
             °F
           </motion.button>
           <motion.button 
-            className={`px-2 py-1 rounded-md ${unit === '°C' ? 'bg-white text-blue-600' : 'bg-blue-500'}`}
+            className={`px-2 py-1 rounded-md ${unit === '°C' ? 'bg-white text-blue-600' : 'bg-blue-500'} cursor-pointer`}
             onClick={() => setUnit('°C')}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -296,8 +296,8 @@ export default function WeatherApp() {
             <h3 className="font-medium mb-4">Hourly Forecast</h3>
             <div className="flex space-x-4 overflow-x-auto pb-2">
               {weatherData.days[0].hours && weatherData.days[0].hours
-                .filter((_, index) => index % 3 === 0) // Show every 3 hours
-                .slice(0, 7) // Limit to 7 entries
+                // .filter((_, index) => index % 3 === 0) // Show every 3 hours
+                // .slice(0, 7) // Limit to 7 entries
                 .map((hour, index) => {
                   // Construct time based on datetime property in hours array
                   // Format: "datetime": "00:00:00"
@@ -422,7 +422,7 @@ export default function WeatherApp() {
       <div className="container mx-auto px-2">
         <div className="flex flex-col justify-between items-center">
           <div className="mb-4 w-full text-center md:text-left">
-            <p className="text-sm">© {new Date().getFullYear()} Weather App</p>
+            <p className="text-sm">© {new Date().getFullYear()} WeatherNow</p>
             <p className="text-xs text-blue-200 mt-1">Powered by Visual Crossing</p>
             <p className="text-xs text-blue-200 mt-1">Built with ReactJS, Tailwind and Motion</p>
           </div>
