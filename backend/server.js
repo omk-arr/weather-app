@@ -7,7 +7,7 @@ const app = express();
 const weatherRoute = require('./routes/weather');
 
 app.use(cors({
-    origin: ['https://weathernow01.vercel.app/', 'http://localhost:3000'],
+    origin: ['https://weathernow01.vercel.app', 'http://localhost:3000'],
     credentials: true
   }));
   
