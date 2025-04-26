@@ -6,7 +6,11 @@ const app = express();
 
 const weatherRoute = require('./routes/weather');
 
-app.use(cors());
+app.use(cors({
+    origin: ['https://weathernow01.vercel.app/', 'http://localhost:3000'],
+    credentials: true
+  }));
+  
 app.use(express.json());
 
 app.use('/api/weather', weatherRoute);
