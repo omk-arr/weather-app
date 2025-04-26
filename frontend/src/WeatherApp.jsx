@@ -12,11 +12,12 @@ export default function WeatherApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const API_URL = 'https://weather-now-api.onrender.com'
   const fetchWeatherData = async (loc) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/weather?loc=${loc}&unit=${unit}`);
+      const response = await fetch(`${API_URL}/api/weather?loc=${loc}&unit=${unit}`);
       if (!response.ok) {
         throw new Error('Weather data not available');
       }
